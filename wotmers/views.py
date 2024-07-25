@@ -1,44 +1,32 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from django.http import JsonResponse
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from .models import Category, Product
+from .serializers import CategorySerializer, ProductSerializer
 
 # Create your views here.
 
+@api_view(['GET'])
 def category_list(request):
-    categories = Category.object.all()
-    data = [{"id": category.id, "name": category.name} for category in categories]
-    return JsonResponse(data, safe=False)
+    categories = Category.objects.all()
+    serializer = CategorySerializer(categories, many=True)
+    return Response(serializer.data)
 
+@api_view(['GET'])
 def category_detail(request, pk):
     category = get_object_or_404(Category, pk=pk)
-    data = {"id": category.id, "name": category.name}
-    return JsonResponse(data)
+    serializer = CategorySerializer(category)
+    return Response(serializer.data)
 
+@api_view(['GET'])
 def product_list(request):
     products = Product.objects.all()
-    data = [
-        {
-            "id": product.id,
-            "name": product.name,
-            "price": str(product.price),
-            "description": product.description,
-            "category": product.category.name,
-            "image": product.image.url if product.image else None
-        }
-        for product in products
-    ]
-    return JsonResponse(data, safe=False)
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
 
+@api_view(['GET'])
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
-    data = {
-            "id": product.id,
-            "name": product.name,
-            "price": str(product.price),
-            "description": product.description,
-            "category": product.category.name,
-            "image": product.image.url if product.image else None
-        }
-        
-    return JsonResponse(data, safe=False)
+    serializer = ProductSerializer(product)
+    return Response(serializer.data)
