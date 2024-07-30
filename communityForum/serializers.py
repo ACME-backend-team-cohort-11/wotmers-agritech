@@ -3,6 +3,9 @@ from .models import Category, Thread, Post
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Category model.
+    """
     class Meta:
         model = Category
         fields = ['id', 'name', 'slug',
@@ -10,6 +13,9 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ThreadSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Thread model.
+    """
     class Meta:
         model = Thread
         fields = ['id', 'title', 'slug', 'content', 'category',
@@ -17,6 +23,9 @@ class ThreadSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Post model.
+    """
     class Meta:
         model = Post
         fields = ['id', 'content', 'thread', 'author',
