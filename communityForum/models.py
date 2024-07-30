@@ -38,7 +38,7 @@ class Thread(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_flagged = models.BooleanField(default=False)
-    flagged_reason = models.TextField(blank=True, null=True)
+    flagged_reason = models.TextField(blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -63,7 +63,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_flagged = models.BooleanField(default=False)
-    flagged_reason = models.TextField(blank=True, null=True)
+    flagged_reason = models.TextField(blank=True)
 
     def __str__(self):
         return f'Post by {self.author.username} in {self.thread.title}'
