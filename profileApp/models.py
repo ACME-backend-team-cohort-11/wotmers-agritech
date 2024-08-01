@@ -43,6 +43,8 @@ class FarmerProfile(models.Model):
     crop_types = models.CharField(max_length=255)
     livestock_types = models.CharField(max_length=255)
     membership_in_cooperatives = models.CharField(max_length=255)
+    passport = models.FileField(upload_to='passports/', blank=True, null=True)
+
 
 class BusinessProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='business_profile')
@@ -52,6 +54,8 @@ class BusinessProfile(models.Model):
     business_type = models.CharField(max_length=50)
     products_or_services = models.TextField()
     license_number = models.CharField(max_length=50)
+    passport = models.FileField(upload_to='passports/', blank=True, null=True)
+
 
 class ExpertProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='expert_profile')
@@ -61,3 +65,5 @@ class ExpertProfile(models.Model):
     field_of_expertise = models.CharField(max_length=100)
     years_of_experience = models.PositiveIntegerField()
     certifications = models.TextField()
+    passport = models.FileField(upload_to='passports/', blank=True, null=True)
+
